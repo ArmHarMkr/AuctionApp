@@ -1,15 +1,12 @@
 using AuctionApp.DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using AuctionApp.DAL.Repository;
 using AuctionApp.DAL.Implementation;
+using AuctionApp.Service.Interfaces;
 using AuctionApp.Domain.Entities;
-using System.Threading;
+using AuctionApp.Service.Implementation;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,21 +18,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddHostedService<RepeatingService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuctionProdRepository, AuctionRepository>();
+builder.Services.AddTransient<AuctionApp.Service.Interfaces.IEmailSender, EmailSender>();
 
 var app = builder.Build();
-
-// Create a timer that calls GenerateAuctionProd every 5 seconds
-var timer = new Timer(async _ =>
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-        await unitOfWork.AuctionProd.GenerateAuctionProd();
-    }
-}, null, TimeSpan.Zero, TimeSpan.FromSeconds(600));
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -2,6 +2,7 @@
 using AuctionApp.DAL.Repository;
 using AuctionApp.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,6 @@ namespace AuctionApp.DAL.Implementation
         {
             _db = db;
             _userManager = userManager;
-        }
-
-        public async Task GenerateAuctionProd()
-        {
-            Random rnd = new Random();
-            AuctionProd prod = new()
-            {
-                ProductName = "Mandarin",
-                ProductDescription = "Fresh mandarin",
-                ImagePath = "E:\\.Net projects\\AuctionApp\\AuctionApp\\wwwroot\\img\\Mandarin.jpg",
-                InitialPrice = rnd.Next(50, 100)
-            };
-            await _db.AuctionProducts.AddAsync(prod);
-            await _db.SaveChangesAsync();
         }
 
     }

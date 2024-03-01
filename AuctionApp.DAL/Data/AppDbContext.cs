@@ -25,15 +25,16 @@ namespace AuctionApp.DAL.Data
             builder.Entity<AuctionProd>()
                 .HasOne(a => a.LastBidUser)
                 .WithMany()
-                .IsRequired()
+                .IsRequired(false) 
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<AuctionProd>()
                 .HasOne(a => a.BoughtUser)
                 .WithMany()
-                .IsRequired()
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         }
+
 
 
     }

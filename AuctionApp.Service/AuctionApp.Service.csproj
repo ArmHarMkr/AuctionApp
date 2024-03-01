@@ -18,9 +18,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuctionApp.DAL\AuctionApp.DAL.csproj" />
     <ProjectReference Include="..\AuctionApp.Domain\AuctionApp.Domain.csproj" />
   </ItemGroup>
 

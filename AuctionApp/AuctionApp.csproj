@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuctionApp.DAL\AuctionApp.DAL.csproj" />
     <ProjectReference Include="..\AuctionApp.Domain\AuctionApp.Domain.csproj" />
+    <ProjectReference Include="..\AuctionApp.Service\AuctionApp.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

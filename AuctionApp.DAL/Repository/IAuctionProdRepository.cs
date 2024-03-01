@@ -9,6 +9,8 @@ namespace AuctionApp.DAL.Repository
 {
     public interface IAuctionProdRepository : IRepository<AuctionProd>
     {
-        public Task GenerateAuctionProd();
-    }
+/*        public Task GenerateAuctionProd();*/
+
+/*        public Task Update(AuctionProd prod);
+*/    }
 }

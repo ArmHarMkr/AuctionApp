@@ -4,6 +4,7 @@ using AuctionApp.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuctionApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240301062914_AddNewProdTable")]
+    partial class AddNewProdTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +106,7 @@ namespace AuctionApp.DAL.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BoughtUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ImagePath")
@@ -118,6 +122,7 @@ namespace AuctionApp.DAL.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("LastBidUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double?>("LastPrice")
@@ -290,11 +295,13 @@ namespace AuctionApp.DAL.Migrations
 
                     b.HasOne("AuctionApp.Domain.Entities.AppUser", "BoughtUser")
                         .WithMany()
-                        .HasForeignKey("BoughtUserId");
+                        .HasForeignKey("BoughtUserId")
+                        .IsRequired();
 
                     b.HasOne("AuctionApp.Domain.Entities.AppUser", "LastBidUser")
                         .WithMany()
-                        .HasForeignKey("LastBidUserId");
+                        .HasForeignKey("LastBidUserId")
+                        .IsRequired();
 
                     b.Navigation("BoughtUser");
 
